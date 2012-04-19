@@ -94,7 +94,7 @@ class Users {
                             if (mysql_num_rows($result)==1) {
                                 $data['error_login_isset'] = true;
                             } else {
-                                $result = mysql_query("INSERT INTO users VALUES ('','".mysql_real_escape_string($username)."','".mysql_real_escape_string($password_hash)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string($name)."','pic1.jpg','',NOW(),NOW(),'')");
+                                $result = mysql_query("INSERT INTO users VALUES ('','".mysql_real_escape_string($username)."','".mysql_real_escape_string($password_hash)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string($name)."','pic1.jpg','',NOW(),NOW(),'1')");
 								
 								// Введені дані пройшли валідацію і занесені в базу, логінимо
                                 if ($result) {

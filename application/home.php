@@ -21,10 +21,13 @@ class Home {
         //unset($_SESSION['user_id']);
 		$id = $_SESSION['user_id'];
 		//print_r($data2);
-		if ($this->check_admin($id)) {
-			$data['admin'] = '<a href="/admin/add">Додати новину</a>';
-			$_SESSION['rules'] = 1;
-		}
+		//if ($this->check_rules($id)) {
+		//	$data['admin'] = '<a href="/admin/add">Додати новину</a>';
+		//	$_SESSION['rules'] = 1;
+		//}
+		
+		//print_r($this->check_rules($id));
+		$data['rules_link'] = $this->doit($id);
 		
 		if ($this->loggedin()) {
 			$data['profile'] = '<a href="/user/profile">Профиль</a>';
@@ -47,6 +50,11 @@ class Home {
 		}
 	}
 	
+	function check_rules($id) {
+		$data = $this->model->getrules($id);
+		return $data;
+	}
+	
 	
 	function loggedin() {
     if (isset($_SESSION['user_id'])&&!empty($_SESSION['user_id'])) {
@@ -55,5 +63,32 @@ class Home {
             return false;
         }
     }
+	
+	function doit($id)
+	{
+		$check_rul = $this->check_rules($id);
+		switch($check_rul['rules'])
+		{
+			case 0:
+				echo '<p>Користувач</p>';
+				$_SESSION['rules'] = $check_rul['rules'];
+				break;
+			case 1:
+				echo '<p>Редактор</p>';
+				$data['rules_link'] = '<a href="/admin/add">Додати новину</a>';
+				$_SESSION['rules'] = $check_rul['rules'];
+				break;
+			case 2:
+				echo '<p>Адмін</p>';
+				$data['rules_link'] = '<a href="/admin/add">Додати новину</a><br><a href="/admin/users">Управління користувачами</a>';
+				$_SESSION['rules'] = $check_rul['rules'];
+				break;
+			case 3:
+				echo '<p>Заблокований</p>';
+				$_SESSION['rules'] = $check_rul['rules'];
+				break;
+		}
+		return $data;
+	}
 
 }
