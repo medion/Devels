@@ -45,6 +45,12 @@ class Model {
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		return $row;
 	}
+	
+	public function getprofile($user_id) {
+		$result = mysql_query("SELECT * FROM users WHERE id = '".$user_id."'");
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		return $row;
+	}
    
    
 }

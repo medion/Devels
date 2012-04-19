@@ -61,7 +61,9 @@ foreach($data['news'] as $key => $value)
 			echo "ID: ".$_SESSION['user_id']."<br />";
 		}
 	?>
-				
+	
+	<?=$profile?>	
+	<br>
 	<?=$admin?>
 				
 	<?php

@@ -25,8 +25,9 @@ $lang['reg_title'] = 'For registration complete the form';
 $lang['reg_username'] = 'Login';
 $lang['reg_password'] = 'Password';
 $lang['reg_password_again'] = 'Repeat password';
+$lang['reg_email'] = 'E-mail';
 $lang['reg_firstname'] = 'Your name';
-$lang['reg_surname'] = 'Your last name';
+$lang['reg_name'] = 'Your name';
 $lang['reg_button'] = 'Sign up';
 $lang['reg_already_registered'] = 'Already registered.';
 

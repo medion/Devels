@@ -25,6 +25,11 @@ class Home {
 			$data['admin'] = '<a href="/admin/add">Додати новину</a>';
 			$_SESSION['rules'] = 1;
 		}
+		
+		if ($this->loggedin()) {
+			$data['profile'] = '<a href="/user/profile">Профиль</a>';
+		}
+		
 		//print_r($this->check_admin($id));
 		//print_r($_SESSION);
 		//print_r($data);
@@ -41,5 +46,14 @@ class Home {
 			return false;
 		}
 	}
+	
+	
+	function loggedin() {
+    if (isset($_SESSION['user_id'])&&!empty($_SESSION['user_id'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

@@ -25,8 +25,10 @@ $lang['reg_title'] = 'Для регистрации заполните форму';
 $lang['reg_username'] = 'Логин';
 $lang['reg_password'] = 'Пароль';
 $lang['reg_password_again'] = 'Повторите пароль';
+$lang['reg_email'] = 'Електронная почта';
 $lang['reg_firstname'] = 'Ваше имя';
-$lang['reg_surname'] = 'Ваша фамилия';
+$lang['reg_name'] = 'Ваше имя';
+$lang['reg_surname'] = 'DELETE';
 $lang['reg_button'] = 'Зарегистрироваться';
 $lang['reg_already_registered'] = 'Вы зарегистрированы.';
 

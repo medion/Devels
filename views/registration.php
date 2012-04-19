@@ -39,13 +39,20 @@ endswitch;
       if (isset($error_login_isset)) {echo $lang['reg_error_login_isset']; }
       ?>
 </div>
-<form action="/user/registration" method="POST">
+<form action="/user/registration" method="POST" enctype="multipart/form-data">
     <p><?=$lang['reg_username']?>: <input type="text" name="username" maxlength="20" value="<?=$username?>"></p>
     <p><?=$lang['reg_password']?>: <input type="text" name="password"></p>
     <p><?=$lang['reg_password_again']?>: <input type="text" name="password_again"></p>
-    <p><?=$lang['reg_firstname']?>: <input type="text" maxlength="30" name="firstname" value="<?=$firstname?>"></p>
-    <p><?=$lang['reg_surname']?>: <input type="text" maxlength="30" name="surname" value="<?=$surname?>"></p>
+	<p><?=$lang['reg_email']?>: <input type="text" maxlength="30" name="email" value="<?=$email?>"></p>
+    <p><?=$lang['reg_name']?>: <input type="text" maxlength="30" name="name" value="<?=$name?>"></p>
+	<p>Виберіть файл для завантаження: <input type="file" name="userfile"></p>
     <p><input type="submit" value="<?=$lang['reg_button']?>"></p>
+</form>
+	
+	
+	
+	
+	
 </form>
     <?} else {
       echo $lang['reg_already_registered'];
