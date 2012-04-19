@@ -90,8 +90,26 @@ class Users {
                                 $data['error_login_isset'] = true;
                             } else {
                                 $result = mysql_query("INSERT INTO users VALUES ('','".mysql_real_escape_string($username)."','".mysql_real_escape_string($password_hash)."','".mysql_real_escape_string($firstname)."','".mysql_real_escape_string($surname)."','')");
+								
+								// Введені дані пройшли валідацію, логінимо
                                 if ($result) {
-                                    header('Location: registration_done');
+									$query = "SELECT id FROM users WHERE username='".mysql_real_escape_string($username)."' AND password='".mysql_real_escape_string($password_hash)."'";
+									
+									if ($query_run = mysql_query($query)) {
+										$query_num_rows = mysql_num_rows($query_run);
+										if ($query_num_rows==0) {
+											$data['error_invalid_login_pass'] = true;
+											$this->load->view('login.php', $data);
+										} else if ($query_num_rows==1){
+											$user_id = mysql_result($query_run, 0, 'id');
+											$_SESSION['user_id'] = $user_id;
+											if($_SERVER['HTTP_REFERER'] == 'http://devels.loc/user/login') {
+												header('Location: /');
+											} else {
+												header('Location: /');
+											}
+										}
+									}
                                 } else {
                                     echo 'Відбулась помилка. Реєстрація не можлива';
                                 }
