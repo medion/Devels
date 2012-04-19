@@ -1,0 +1,9 @@
+DirectoryIndex index.php
+AddDefaultCharset utf-8
+RewriteEngine On
+Options +FollowSymlinks
+RewriteCond $1 !^(index\.php|images|robots\.txt|public)
+RewriteCond %{REQUEST_URI} !\.(css³js³jpg³gif³png)$
+RewriteCond %{REQUEST_FILENAME}       !-d
+RewriteCond %{REQUEST_FILENAME}       !-f
+RewriteRule ^(.*) index.php?%{QUERY_STRING}
