@@ -2,11 +2,14 @@
 
 class Home {
 
+
+
     function __construct($http)
     {
         $this->load = new Load();
         $this->model = new Model();
         $this->index($http);
+		
     }
 
     function index($http)
@@ -50,11 +53,7 @@ class Home {
 		}
 	}
 	
-	function check_rules($id) {
-		$data = $this->model->getrules($id);
-		return $data;
-	}
-	
+
 	
 	function loggedin() {
     if (isset($_SESSION['user_id'])&&!empty($_SESSION['user_id'])) {
@@ -63,6 +62,11 @@ class Home {
             return false;
         }
     }
+	
+	function check_rules($id) {
+		$data = $this->model->getrules($id);
+		return $data;
+	}
 	
 	function doit($id)
 	{
@@ -90,5 +94,5 @@ class Home {
 		}
 		return $data;
 	}
-
+	
 }

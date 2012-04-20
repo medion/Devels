@@ -66,7 +66,13 @@ $lng = $_SESSION['lang'];
 		}
 	?>
 	
+	<?=$profile?>	
+	<br>
 	<?=$admin?>
+	
+	<?=$rules_link['rules_link']?>
+	
+	<?=$_SESSION['rules']?>
 	
 	<?php
 	if ($this->loggedin()) {
