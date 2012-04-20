@@ -51,6 +51,15 @@ class Model {
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		return $row;
 	}
+	
+	public function getallusers() {
+		$result = mysql_query('SELECT * FROM users');
+		while($row = mysql_fetch_assoc($result))
+		{
+			$data[] = $row;
+		};
+		return $data;
+	}
    
    
 }

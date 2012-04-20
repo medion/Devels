@@ -88,23 +88,10 @@ foreach($data as $key => $value)
 ?>
 </ul>
                                                           
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                <?php
-                                                    echo "<br>Активна мова: ".$_SESSION['lang']."<br>";
-                                                ?>
+                                               
+<?php
+	echo "<br>Активна мова: ".$_SESSION['lang']."<br>";
+?>
 
 					</article>
 					<article class="col2 pad_left1">

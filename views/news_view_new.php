@@ -43,7 +43,7 @@ $lng = $_SESSION['lang'];
 													
 <?php
 	$rules = $_SESSION['rules'];
-	if (isset($rules)&&$rules===1) {
+	if (isset($rules)&&$rules == 1||$rules == 2) {
 		print_r("<br><a href='/admin/edit/".$data['id']."'>Редагувати</a> <a href='/admin/delete/".$data['id']."'>Видалити</a>");
 		//print_r($admin);
 	}
@@ -66,7 +66,13 @@ $lng = $_SESSION['lang'];
 		}
 	?>
 	
+	<?=$profile?>	
+	<br>
 	<?=$admin?>
+	
+	<?=$rules_link['rules_link']?>
+	
+	<?=$_SESSION['rules']?>
 	
 	<?php
 	if ($this->loggedin()) {

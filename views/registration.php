@@ -9,7 +9,7 @@
     }
     
     
-    switch($_SESSION['lang']) :
+switch($_SESSION['lang']) :
    case 'ua': include('./ua.php'); break;
    case 'ru': include('./ru.php'); break;
    case 'en': include('./en.php'); break;
@@ -37,6 +37,7 @@ endswitch;
       if (isset($error_max_lenght)) {echo $lang['reg_error_max_lenght']; }
       if (isset($error_password_repeat)) {echo $lang['reg_error_password_repeat']; }
       if (isset($error_login_isset)) {echo $lang['reg_error_login_isset']; }
+	  if (isset($error_image_type)) {echo $lang['error_image_type']; }
       ?>
 </div>
 <form action="/user/registration" method="POST" enctype="multipart/form-data">
@@ -45,14 +46,8 @@ endswitch;
     <p><?=$lang['reg_password_again']?>: <input type="text" name="password_again"></p>
 	<p><?=$lang['reg_email']?>: <input type="text" maxlength="30" name="email" value="<?=$email?>"></p>
     <p><?=$lang['reg_name']?>: <input type="text" maxlength="30" name="name" value="<?=$name?>"></p>
-	<p>Виберіть файл для завантаження: <input type="file" name="userfile"></p>
+	<p><?=$lang['reg_load_avatar']?>: <input type="file" name="avatar"></p>
     <p><input type="submit" value="<?=$lang['reg_button']?>"></p>
-</form>
-	
-	
-	
-	
-	
 </form>
     <?} else {
       echo $lang['reg_already_registered'];

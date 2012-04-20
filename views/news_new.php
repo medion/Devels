@@ -38,9 +38,9 @@ function cutText($string, $maxlen) {
 <div class="allbody">
 
 <div class="header">
-	<a href="/">Home</a>
-	<a href="/news">News</a>
-	<a href="/page/contacts">Contacts</a>
+	<a href="/"><?=$lang['header_home']?></a>
+	<a href="/news"><?=$lang['header_news']?></a>
+	<a href="/page/contacts"><?=$lang['header_contacts']?></a>
 </div>
 
 <div class="content">
@@ -50,7 +50,7 @@ $lng = $_SESSION['lang'];
 foreach($data['news'] as $key => $value)
 {
     print_r("<div class='news_block'><h4><a href='news/view/".$value['id']."'>".$value['title_'.$lng]."</a></h4>"
-                .cutText($value['text_'.$lng], 150)."<br /><a href='news/view/".$value['id']."'>Читати далі</a></div>");
+                .cutText($value['text_'.$lng], 150)."<br /><a href='news/view/".$value['id']."'>".$lang['read_more']."</a></div>");
 }
 ?>
 
@@ -70,17 +70,23 @@ foreach($data['news'] as $key => $value)
 		}
 	?>
 
+	<?=$profile?>	
+	<br>
 	<?=$admin?>
+	
+	<?=$rules_link['rules_link']?>
+	
+	<?=$_SESSION['rules']?>
 	
 	<?php
 	if ($this->loggedin()) {
-		echo "<br /><a href=\"/user/logout\">Log Out</a>";
+		echo "<br /><a href='/user/logout'>Log Out</a>";
 	} else {
 		print_r("<h2>".$lang['sidebar_login_title']."</h2>
 		<form action='/user/login' method='post'>
 			<input type='text' name='username'>
 			<input type='text' name='password'>
-			<input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>Реєстрація</a>
+			<input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>".$lang['sidebar_reg_button']."</a>
 		</form>");
 	}
 	?>

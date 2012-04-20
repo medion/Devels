@@ -1,6 +1,6 @@
 <?php
-$lang['title'] = 'Äîáğî ïîæàëîâàòü';
-$lang['text'] = 'Ğàäû Âàñ âèäåòü';
+$lang['title'] = 'Ğ”Ğ¾Ğ±Ñ€Ğ¾ Ğ¿Ğ¾Ğ¶Ğ°Ğ»Ğ¾Ğ²Ğ°Ñ‚ÑŒ';
+$lang['text'] = 'Ğ Ğ°Ğ´Ñ‹ Ğ’Ğ°Ñ Ğ²Ğ¸Ğ´ĞµÑ‚ÑŒ';
 $lang['header_home'] = 'Home';
 $lang['header_project'] = 'Project';
 $lang['header_news'] = 'News';
@@ -16,22 +16,28 @@ $lang['sidebar_login_button'] = 'Log In';
 $lang['sidebar_reg_button'] = 'Registration';
 $lang['news_title'] = 'News';
 
+//Ğ§Ğ¸Ñ‚Ğ°Ñ‚Ğ¸ Ğ´Ğ°Ğ»Ñ–
+$lang['read_more'] = 'Read more';
 
+//ĞŸĞ°Ğ½ĞµĞ»ÑŒ ĞºĞ¾Ñ€Ğ¸ÑÑ‚ÑƒĞ²Ğ°Ñ‡Ğ°
+$lang['profile'] = 'Profile';
+$lang['add_news'] = 'Add news';
+$lang['user_management'] = 'User Management';
+$lang['user_exit'] = 'Log Out';
 
-
-// Ñòîğ³íêà ğåºñòğàö³¿
+// Ğ¡Ñ‚Ğ¾Ñ€Ñ–Ğ½ĞºĞ° Ñ€ĞµÑ”ÑÑ‚Ñ€Ğ°Ñ†Ñ–Ñ—
 $lang['reg_page_title'] = 'Registration client Eco Design';
 $lang['reg_title'] = 'For registration complete the form';
 $lang['reg_username'] = 'Login';
 $lang['reg_password'] = 'Password';
 $lang['reg_password_again'] = 'Repeat password';
 $lang['reg_email'] = 'E-mail';
-$lang['reg_firstname'] = 'Your name';
 $lang['reg_name'] = 'Your name';
+$lang['reg_load_avatar'] = 'Select avatars: ';
 $lang['reg_button'] = 'Sign up';
 $lang['reg_already_registered'] = 'Already registered.';
 
-// Ïîìèëêè ïğè ğåºñòğàö³¿
+// ĞŸĞ¾Ğ¼Ğ¸Ğ»ĞºĞ¸ Ğ¿Ñ€Ğ¸ Ñ€ĞµÑ”ÑÑ‚Ñ€Ğ°Ñ†Ñ–Ñ—
 $lang['reg_error_empty'] = 'All fields must be filled.';
 $lang['reg_error_max_lenght'] = 'Put login length exceeds the maximum.';
 $lang['reg_error_password_repeat'] = 'Password and repeated password do not match.';
@@ -42,7 +48,13 @@ $lang['reg_error_login_isset'] = 'Login <strong>'.$username.'</strong> already e
 $lang['error_empty_login_pass'] = 'You must supply username and password';
 $lang['error_invalid_login_pass'] = 'Invalid username/password combination.';
 
-
+// ĞĞ´Ğ¼Ñ–Ğ½ĞºĞ° - Ğ´Ğ¾Ğ´Ğ°Ğ²Ğ°Ğ½Ğ½Ñ Ğ½Ğ¾Ğ²Ğ¸Ğ½Ğ¸
+$lang['admin_news_title_add_ua'] = 'Headline news (ukrainian)';
+$lang['admin_news_text_add_ua'] = 'The text of news (ukrainian)';
+$lang['admin_news_title_add_en'] = 'Headline news (english)';
+$lang['admin_news_text_add_en'] = 'The text of news (english)';
+$lang['admin_news_add_button'] = 'Add news';
+$lang['admin_news_empty_add'] = 'Enter a title and text news';
 
 return $arr;
 ?>

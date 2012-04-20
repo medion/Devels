@@ -30,9 +30,9 @@ $lng = $_SESSION['lang'];
 <div class="allbody">
 
 <div class="header">
-	<a href="/">Home</a>
-	<a href="/news">News</a>
-	<a href="/page/contacts">Contacts</a>
+	<a href="/"><?=$lang['header_home']?></a>
+	<a href="/news"><?=$lang['header_news']?></a>
+	<a href="/page/contacts"><?=$lang['header_contacts']?></a>
 </div>
 
 <div class="content">
@@ -57,17 +57,23 @@ $lng = $_SESSION['lang'];
 		}
 	?>
 			
+	<?=$profile?>	
+	<br>
 	<?=$admin?>
+	
+	<?=$rules_link['rules_link']?>
+	
+	<?=$_SESSION['rules']?>
 			
 	<?php
 	if ($this->loggedin()) {
-		echo "<br /><a href=\"/user/logout\">Log Out</a>";
+		echo "<br /><a href='/user/logout'>".$lang['user_exit']."</a>";
 	} else {
 		print_r("<h2>".$lang['sidebar_login_title']."</h2>
 		<form action='/user/login' method='post'>
 			<input type='text' name='username'>
 			<input type='text' name='password'>
-			<input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>Реєстрація</a>
+			<input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>".$lang['sidebar_reg_button']."</a>
 		</form>");
 	}
 	?>

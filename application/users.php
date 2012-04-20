@@ -94,30 +94,41 @@ class Users {
                             if (mysql_num_rows($result)==1) {
                                 $data['error_login_isset'] = true;
                             } else {
-                                $result = mysql_query("INSERT INTO users VALUES ('','".mysql_real_escape_string($username)."','".mysql_real_escape_string($password_hash)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string($name)."','pic1.jpg','',NOW(),NOW(),'')");
-								
-								// Введені дані пройшли валідацію і занесені в базу, логінимо
-                                if ($result) {
-									$query = "SELECT id FROM users WHERE username='".mysql_real_escape_string($username)."' AND password='".mysql_real_escape_string($password_hash)."'";
+								$upfilename = $this->upload($_FILES);
+								//if ($upfilename) {
+								//	echo 'ssss';
+								//} else {
+								//
+								//echo 'unknow';
+								//}
+									if (empty($upfilename)) { $upfilename = 'default.jpg'; }
 									
-									if ($query_run = mysql_query($query)) {
-										$query_num_rows = mysql_num_rows($query_run);
-										if ($query_num_rows==0) {
-											$data['error_invalid_login_pass'] = true;
-											$this->load->view('login.php', $data);
-										} else if ($query_num_rows==1){
-											$user_id = mysql_result($query_run, 0, 'id');
-											$_SESSION['user_id'] = $user_id;
-											if($_SERVER['HTTP_REFERER'] == 'http://devels.loc/user/login') {
-												header('Location: /');
-											} else {
-												header('Location: /');
+									
+									$result = mysql_query("INSERT INTO users VALUES ('','".mysql_real_escape_string($username)."','".mysql_real_escape_string($password_hash)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string($name)."','".$upfilename."','',NOW(),NOW(),'1')");
+								
+									// Введені дані пройшли валідацію і занесені в базу, логінимо
+									if ($result) {
+										$query = "SELECT id FROM users WHERE username='".mysql_real_escape_string($username)."' AND password='".mysql_real_escape_string($password_hash)."'";
+										
+										if ($query_run = mysql_query($query)) {
+											$query_num_rows = mysql_num_rows($query_run);
+											if ($query_num_rows==0) {
+												$data['error_invalid_login_pass'] = true;
+												$this->load->view('login.php', $data);
+											} else if ($query_num_rows==1){
+												$user_id = mysql_result($query_run, 0, 'id');
+												$_SESSION['user_id'] = $user_id;
+												if($_SERVER['HTTP_REFERER'] == 'http://devels.loc/user/login') {
+													header('Location: /');
+												} else {
+													header('Location: /');
+												}
 											}
 										}
+									} else {
+										echo 'Відбулась помилка. Реєстрація не можлива';
 									}
-                                } else {
-                                    echo 'Відбулась помилка. Реєстрація не можлива';
-                                }
+								//}
                             }
                         }
                     }
@@ -241,5 +252,47 @@ class Users {
 		imagejpeg($newpic, $name, 100);
 		return true;
 	}
+	
+	
+	function filename($length = 12){
+	  $chars = 'abcdefghijklmnoprstuvwxyz123456789';
+	  $numChars = strlen($chars);
+	  $string = '';
+	  for ($i = 0; $i < $length; $i++) {
+		$string .= substr($chars, rand(1, $numChars) - 1, 1);
+	  }
+	  return $string;
+	}
+	
+	
+	function upload($_FILES) {
+									if($_FILES['avatar']['tmp_name']&&$_FILES['avatar']['error']==0)
+									{
+										if ($_FILES['size']['tmp_name'] < 1024*2*1024) {
+											// Перевіримо чи дійсно завантажуваний файл зображення
+											$imageinfo = getimagesize($_FILES['avatar']['tmp_name']);
+												if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/png')
+												{
+													$data['error_image_type'] = true;
+													$newfilename = 'default.jpg';
+													$data['error_image_type'] = 'ERROR IMG';
+												}
+												else
+												{
+													$uploaddir = './uploads/avatar/';
+													$filename = $_FILES['avatar']['name'];
+													$newfilename = $this->filename().'.'.end(explode(".", $filename));;
+													$uploadfile = $uploaddir.$newfilename;
+													$mimetype = $_FILES['avatar']['type'];
+													if (!copy($_FILES['avatar']['tmp_name'], $uploadfile))
+													{
+														echo "<h3>Ошибка! Не удалось загрузить файл на сервер!</h3>";
+													}
+													return $newfilename;
+												}
+										}
+									}
+	}
+	
 	
 }
