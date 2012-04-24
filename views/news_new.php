@@ -15,17 +15,17 @@
    case 'en': include('./en.php'); break;
 endswitch;
 
-function cutText($string, $maxlen) {
-    $len = (mb_strlen($string) > $maxlen)
-        ? mb_strripos(mb_substr($string, 0, $maxlen), ' ')
-        : $maxlen
-    ;
-    $cutText = mb_substr($string, 0, $len);
-    return (mb_strlen($string) > $maxlen)
-        ? $cutText . '...'
-        : $cutText
-    ;
-}
+function cutString($string, $maxlen) {
+     $len = (mb_strlen($string) > $maxlen)
+         ? mb_strripos(mb_substr($string, 0, $maxlen), ' ')
+         : $maxlen
+     ;
+     $cutStr = mb_substr($string, 0, $len);
+     return (mb_strlen($string) > $maxlen)
+         ? $cutStr . '...'
+         : $cutStr 
+     ;
+ }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,7 +50,7 @@ $lng = $_SESSION['lang'];
 foreach($data['news'] as $key => $value)
 {
     print_r("<div class='news_block'><h4><a href='news/view/".$value['id']."'>".$value['title_'.$lng]."</a></h4>"
-                .cutText($value['text_'.$lng], 150)."<br /><a href='news/view/".$value['id']."'>".$lang['read_more']."</a></div>");
+                .cutString($value['text_'.$lng], 280)."<br /><a href='news/view/".$value['id']."'>".$lang['read_more']."</a></div>");
 }
 ?>
 
@@ -80,7 +80,7 @@ foreach($data['news'] as $key => $value)
 	
 	<?php
 	if ($this->loggedin()) {
-		echo "<br /><a href='/user/logout'>Log Out</a>";
+		echo "<br /><a href='/user/logout'>".$lang['user_exit']."</a>";
 	} else {
 		print_r("<h2>".$lang['sidebar_login_title']."</h2>
 		<form action='/user/login' method='post'>

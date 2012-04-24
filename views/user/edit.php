@@ -13,6 +13,9 @@
 	   case 'en': include('./en.php'); break;
 	endswitch;
 ?>
+
+<p><a href='/'>Головна</a></p>
+
 <?if (isset($error_profile_edit_empty)) {
 	echo $error_profile_edit_empty;
 }

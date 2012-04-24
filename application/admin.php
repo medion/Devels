@@ -97,20 +97,22 @@ class Admin {
                 $password = $_POST['password'];
                 $password_hash = md5($password);
                 if (!empty($username)&&!empty($email)&&!empty($name)) {
-                    $result = mysql_query("UPDATE users SET username='".$username."', password='".$password_hash."', email='".$email."', name='".$name."', rules='".$rules."' WHERE id = '".$id."'");
+                    //$result = mysql_query("UPDATE users SET username='".$username."', password='".$password_hash."', email='".$email."', name='".$name."', rules='".$rules."' WHERE id = '".$id."'");
+                    $adminupduser_pass = $this->model->adminupduser_pass($id,$username,$password_hash,$email,$name,$rules);
                     header('Location: /admin/useredit/'.$id);
                 } else {
-                    $data['error_admin_useredit_empty'] = 'Всі поля обов\'язкові для заповнення';
+                    //$data['error_admin_useredit_empty'] = 'Всі поля обов\'язкові для заповнення';
                 }
             } else if (empty($_POST['password'])) {
                 if (!empty($username)&&!empty($email)&&!empty($name)) {
-                    $result = mysql_query("UPDATE users SET username='".$username."', email='".$email."', name='".$name."', rules='".$rules."' WHERE id = '".$id."'");
+                    $adminupduser_nopass = $this->model->adminupduser_nopass($id,$username,$email,$name,$rules);
+                    //$result = mysql_query("UPDATE users SET username='".$username."', email='".$email."', name='".$name."', rules='".$rules."' WHERE id = '".$id."'");
                     header('Location: /admin/useredit/'.$id);
                 }
                 else {
-                    $result = mysql_query("SELECT * FROM users WHERE id='".$id."'");
-                    if (mysql_num_rows($result) > 0) {
-                        $data = mysql_fetch_array($result, MYSQL_ASSOC);
+                    $result = $this->model->getallusers_id($id);
+                    if ($result) {
+                        $data = $result;
                         $a = $data['rules'];
                         $data['s'.$a.''] = 'selected';
                     }
@@ -118,9 +120,10 @@ class Admin {
                 }
             }
         } else {
-            $result = mysql_query("SELECT * FROM users WHERE id='".$id."'");
-            if (mysql_num_rows($result) > 0) {
-                $data = mysql_fetch_array($result, MYSQL_ASSOC);
+            //$result = mysql_query("SELECT * FROM users WHERE id='".$id."'");
+            $result = $this->model->getallusers_id($id);
+            if ($result) {
+                $data = $result;
                 $a = $data['rules'];
                 $data['s'.$a.''] = 'selected';
             } else {

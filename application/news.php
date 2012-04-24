@@ -2,8 +2,11 @@
 
 class News {
 
+    
+    
     function __construct($controller,$action,$id)
     {
+        global $db;
         $this->load = new Load();
         $this->model = new Model();
         if ($action == 'view') {
@@ -15,6 +18,7 @@ class News {
 
     function index()
     {
+        
         switch($_SESSION['lang']) :
             default: include('ua.php'); break;
             case 'ru': include('ru.php'); break;
@@ -41,11 +45,50 @@ class News {
         }
         else
         {
+            // COMMENT
+            if ($this->loggedin()) {
+                if (isset($_POST['title'])&&isset($_POST['text'])) {
+                    $title   = $_POST['title'];
+                    $text    = $_POST['text'];
+                    $user_id = $_SESSION['user_id'];
+                    if (!empty($text)&&!empty($user_id)) {
+                        $publication = mktime();
+                        $post_id = $id;
+                        $add_comm = $this->model->add_comm($post_id,$title,$text,$user_id,$publication); //Додаємо коментар
+                        if ($add_comm) { $data_error['comm_add'] = true; }
+                    } else{
+                        $data_error['comm_empty_field'] = true;
+                    }
+                }
+                $data_comm['comm_allow'] = true;
+            }
+            // COMMENT
             $id = (int) $id;
             $data = $this->model->getnews($id);
+            $data['comm_form'] = $data_comm; // Форма коментування
+            $data['error'] = $data_error; // Помилки при коментуванні
             if (empty($data)) {
                 header('Location: /404');
             }
+            $data['comments'] = $this->model->getcomments($id);
+            
+            
+            if (isset($data['comments']))
+            {
+                //$i = 1;
+                foreach($data['comments'] as $comment => $value)
+                {
+                    $all[$value['id']] = $this->model->getcommname($value['user_id']);
+                    $data['comments'][$comment]['username'] = $all[$value['id']]['username'];
+                    $data['comments'][$comment]['publication'] = date('d-m-Y H:i:s', $data['comments'][$comment]['publication']);
+                    if (empty($data['comments'][$comment]['title'])) {
+                        $data['comments'][$comment]['title'] = $this->cutString($data['comments'][$comment]['text'],280);
+                    }
+                    //print_r("<div style=\"border:1px solid gray;\">".'<p>'.'Користувач: '.$value['user_id'].'</p>'.$all[$value['id']]['username'].'<p>'.$value['title'].'</p>'.'<p>'.$value['text'].'</p></div>');
+                }
+            }
+            //print_r($data['comments']);
+            
             $id = $_SESSION['user_id'];
             $data['rules_link'] = $this->doit($id);
             if ($this->loggedin()) {
@@ -101,6 +144,7 @@ class News {
                 echo '<p>Адмін</p>';
                 $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a><br><a href='/admin/users'>".$lang['user_management']."</a>";
                 $_SESSION['rules'] = $check_rul['rules'];
+                $_SESSION['rules_comm'] = $check_rul['rules_comm'];
                 break;
             case 3:
                 echo '<p>Заблокований</p>';
@@ -109,6 +153,20 @@ class News {
         }
         return $data;
     }
+    
+    
+    
+function cutString($string, $maxlen) {
+     $len = (mb_strlen($string) > $maxlen)
+         ? mb_strripos(mb_substr($string, 0, $maxlen), ' ')
+         : $maxlen
+     ;
+     $cutStr = mb_substr($string, 0, $len);
+     return (mb_strlen($string) > $maxlen)
+         ? $cutStr . '...'
+         : $cutStr 
+     ;
+ }
 
 }
 

@@ -1,46 +1,46 @@
 <?php
-$lang['title'] = 'Добро пожаловать';
-$lang['text'] = 'Рады Вас видеть';
-$lang['header_home'] = 'Главная';
-$lang['header_project'] = 'Проекты';
-$lang['header_news'] = 'Новости';
-$lang['header_contacts'] = 'Контакты';
-$lang['welcome'] = 'Добро пожаловать на сайт компании Eco Design';
-$lang['welcome_text'] = 'Наша компания предлагает услуги по дизайну интерьера и проектирования мебели.';
+$lang['title'] = 'Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ';
+$lang['text'] = 'Р Р°РґС‹ Р’Р°СЃ РІРёРґРµС‚СЊ';
+$lang['header_home'] = 'Р“Р»Р°РІРЅР°СЏ';
+$lang['header_project'] = 'РџСЂРѕРµРєС‚С‹';
+$lang['header_news'] = 'РќРѕРІРѕСЃС‚Рё';
+$lang['header_contacts'] = 'РљРѕРЅС‚Р°РєС‚С‹';
+$lang['welcome'] = 'Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РЅР° СЃР°Р№С‚ РєРѕРјРїР°РЅРёРё Eco Design';
+$lang['welcome_text'] = 'РќР°С€Р° РєРѕРјРїР°РЅРёСЏ РїСЂРµРґР»Р°РіР°РµС‚ СѓСЃР»СѓРіРё РїРѕ РґРёР·Р°Р№РЅСѓ РёРЅС‚РµСЂСЊРµСЂР° Рё РїСЂРѕРµРєС‚РёСЂРѕРІР°РЅРёСЏ РјРµР±РµР»Рё.';
 
 
-$lang['news_main'] = 'Новости нашей компании';
-$lang['news_all'] = 'Все новости';
-$lang['sidebar_login_title'] = 'Вход для клиентов';
-$lang['sidebar_login_button'] = 'Вход';
-$lang['sidebar_reg_button'] = 'Регистрация';
-$lang['news_title'] = 'Новости';
+$lang['news_main'] = 'РќРѕРІРѕСЃС‚Рё РЅР°С€РµР№ РєРѕРјРїР°РЅРёРё';
+$lang['news_all'] = 'Р’СЃРµ РЅРѕРІРѕСЃС‚Рё';
+$lang['sidebar_login_title'] = 'Р’С…РѕРґ РґР»СЏ РєР»РёРµРЅС‚РѕРІ';
+$lang['sidebar_login_button'] = 'Р’С…РѕРґ';
+$lang['sidebar_reg_button'] = 'Р РµРіРёСЃС‚СЂР°С†РёСЏ';
+$lang['news_title'] = 'РќРѕРІРѕСЃС‚Рё';
 
 
 
 
-// Сторінка реєстрації
-$lang['reg_page_title'] = 'Регистрация клиента Eco Design';
-$lang['reg_title'] = 'Для регистрации заполните форму';
-$lang['reg_username'] = 'Логин';
-$lang['reg_password'] = 'Пароль';
-$lang['reg_password_again'] = 'Повторите пароль';
-$lang['reg_email'] = 'Електронная почта';
-$lang['reg_firstname'] = 'Ваше имя';
-$lang['reg_name'] = 'Ваше имя';
+// РЎС‚РѕСЂС–РЅРєР° СЂРµС”СЃС‚СЂР°С†С–С—
+$lang['reg_page_title'] = 'Р РµРіРёСЃС‚СЂР°С†РёСЏ РєР»РёРµРЅС‚Р° Eco Design';
+$lang['reg_title'] = 'Р”Р»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё Р·Р°РїРѕР»РЅРёС‚Рµ С„РѕСЂРјСѓ';
+$lang['reg_username'] = 'Р›РѕРіРёРЅ';
+$lang['reg_password'] = 'РџР°СЂРѕР»СЊ';
+$lang['reg_password_again'] = 'РџРѕРІС‚РѕСЂРёС‚Рµ РїР°СЂРѕР»СЊ';
+$lang['reg_email'] = 'Р•Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р°';
+$lang['reg_firstname'] = 'Р’Р°С€Рµ РёРјСЏ';
+$lang['reg_name'] = 'Р’Р°С€Рµ РёРјСЏ';
 $lang['reg_surname'] = 'DELETE';
-$lang['reg_button'] = 'Зарегистрироваться';
-$lang['reg_already_registered'] = 'Вы зарегистрированы.';
+$lang['reg_button'] = 'Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ';
+$lang['reg_already_registered'] = 'Р’С‹ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹.';
 
-// Помилки при реєстрації
-$lang['reg_error_empty'] = 'Все поля должны быть заполнены.';
-$lang['reg_error_max_lenght'] = 'Введена длина логина превышает максимально допустимую.';
-$lang['reg_error_password_repeat'] = 'Пароль и повторение пароля не совпадают.';
-$lang['reg_error_login_isset'] = 'Логин <strong>'.$username.'</strong> уже существует.';
+// РџРѕРјРёР»РєРё РїСЂРё СЂРµС”СЃС‚СЂР°С†С–С—
+$lang['reg_error_empty'] = 'Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹.';
+$lang['reg_error_max_lenght'] = 'Р’РІРµРґРµРЅР° РґР»РёРЅР° Р»РѕРіРёРЅР° РїСЂРµРІС‹С€Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РёРјСѓСЋ.';
+$lang['reg_error_password_repeat'] = 'РџР°СЂРѕР»СЊ Рё РїРѕРІС‚РѕСЂРµРЅРёРµ РїР°СЂРѕР»СЏ РЅРµ СЃРѕРІРїР°РґР°СЋС‚.';
+$lang['reg_error_login_isset'] = 'Р›РѕРіРёРЅ <strong>'.$username.'</strong> СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.';
 
 
-$lang['error_empty_login_pass'] = 'Необходимо указать имя пользователя и пароль';
-$lang['error_invalid_login_pass'] = 'Неверное имя пользователя / пароль.';
+$lang['error_empty_login_pass'] = 'РќРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·Р°С‚СЊ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїР°СЂРѕР»СЊ';
+$lang['error_invalid_login_pass'] = 'РќРµРІРµСЂРЅРѕРµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ / РїР°СЂРѕР»СЊ.';
 
 return $arr;
 ?>

@@ -4,6 +4,7 @@ class Home {
 
     function __construct($http)
     {
+        global $db;
         $this->load = new Load();
         $this->model = new Model();
         $this->index($http);
