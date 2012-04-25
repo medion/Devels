@@ -2,7 +2,6 @@
 $lang['title'] = 'Добро пожаловать';
 $lang['text'] = 'Рады Вас видеть';
 $lang['header_home'] = 'Home';
-$lang['header_project'] = 'Project';
 $lang['header_news'] = 'News';
 $lang['header_contacts'] = 'Contacts';
 $lang['welcome'] = 'Welcome to the website of Eco Design';
@@ -23,6 +22,7 @@ $lang['read_more'] = 'Read more';
 $lang['profile'] = 'Profile';
 $lang['add_news'] = 'Add news';
 $lang['user_management'] = 'User Management';
+$lang['user_banned'] = 'You blocked the site administrator';
 $lang['user_exit'] = 'Log Out';
 
 // Сторінка реєстрації
@@ -42,9 +42,7 @@ $lang['reg_error_empty'] = 'All fields must be filled.';
 $lang['reg_error_max_lenght'] = 'Put login length exceeds the maximum.';
 $lang['reg_error_password_repeat'] = 'Password and repeated password do not match.';
 $lang['reg_error_login_isset'] = 'Login <strong>'.$username.'</strong> already exists.';
-
-
-
+$lang['error_image_type'] = 'Only jpg, gif, png!';
 $lang['error_empty_login_pass'] = 'You must supply username and password';
 $lang['error_invalid_login_pass'] = 'Invalid username/password combination.';
 
@@ -55,6 +53,36 @@ $lang['admin_news_title_add_en'] = 'Headline news (english)';
 $lang['admin_news_text_add_en'] = 'The text of news (english)';
 $lang['admin_news_add_button'] = 'Add news';
 $lang['admin_news_empty_add'] = 'Enter a title and text news';
+
+// Адмін
+$lang['admin_news_del'] = 'Delete';
+$lang['admin_news_edit'] = 'Edit';
+
+// Коментування
+$lang['comm_add_comm'] = 'Add a comment';
+$lang['comm_add_tema'] = 'Topic';
+$lang['comm_add_text'] = 'Text of the comment';
+$lang['comm_add_button'] = 'Add a comment';
+$lang['comm_first_comm'] = 'Your comment will be the first.';
+$lang['comm_empty_field'] = 'Fill in all fields.';
+$lang['comm_add'] = 'Comment added on.';
+$lang['comm_for_news'] = 'Comments on the News';
+$lang['comm_author'] = 'User';
+$lang['comm_topic'] = 'Topic';
+$lang['comm_text'] = 'Text';
+$lang['comm_date_add'] = 'Added';
+
+// Голосування
+$lang['vote_mark'] = 'Vote';
+$lang['vote_count_mark'] = 'Count vote';
+$lang['vote_form_title'] = 'Voting';
+$lang['vote_choose vote'] = 'Choose a rating';
+$lang['vote_button_add'] = 'Add vote';
+$lang['vote_add_complite'] = 'Your vote counted.';
+$lang['vote_you_voting'] = 'Your rating of the material';
+$lang['vote_add_thanks'] = 'Thank you for voting!';
+$lang['vote_empty_field'] = 'You must select a score!';
+$lang['vote_no_mark'] = 'According to this story yet none.';
 
 return $arr;
 ?>

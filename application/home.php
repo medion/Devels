@@ -4,6 +4,7 @@ class Home {
 
     function __construct($http)
     {
+        global $db;
         $this->load = new Load();
         $this->model = new Model();
         $this->index($http);
@@ -75,6 +76,7 @@ class Home {
             case 3:
                 echo '<p>Заблокований</p>';
                 $_SESSION['rules'] = $check_rul['rules'];
+                $data['rules_link'] = "<span style='color:red'>".$lang['user_banned']."</span>";
                 break;
         }
         return $data;

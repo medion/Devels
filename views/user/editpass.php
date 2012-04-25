@@ -18,7 +18,7 @@
 }
 
 if ($profile_pass_change) {
-	echo '<br>Ваш профіль змінено!<br>';
+	echo '<br>Р’Р°С€ РїСЂРѕС„С–Р»СЊ Р·РјС–РЅРµРЅРѕ!<br>';
 }
 ?>
 <form action="/user/edit" method="POST" enctype="multipart/form-data">
@@ -26,6 +26,6 @@ if ($profile_pass_change) {
     <p><?=$lang['reg_password_again']?>: <input type="text" name="password_again"></p>
     <p><?=$lang['reg_firstname']?>: <input type="text" maxlength="30" name="firstname" value="<?=$firstname?>"></p>
     <p><?=$lang['reg_surname']?>: <input type="text" maxlength="30" name="surname" value="<?=$surname?>"></p>
-	<p>Виберіть файл для завантаження: <input type="file" name="userfile"></p>
+	<p>Р’РёР±РµСЂС–С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ: <input type="file" name="userfile"></p>
     <p><input type="submit" value="<?=$lang['reg_button']?>"></p>
 </form>

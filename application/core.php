@@ -5,13 +5,13 @@ require 'lang.php';
 require 'model.php';
 require 'connect.inc.php';
 
-// Мова за замовчуванням
+// РњРѕРІР° Р·Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј
 $_SESSION['lang'] = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'ua';
 
-// РОУТЕР
+// Р РћРЈРўР•Р 
 $mRequestUri = $_SERVER["REQUEST_URI"];
 
-// Зміна мови
+// Р—РјС–РЅР° РјРѕРІРё
 if(($mRequestUri == '/ua')||($mRequestUri == '/ru')||($mRequestUri == '/en'))
 {
     switch($mRequestUri) :
@@ -34,7 +34,7 @@ if(($mRequestUri == '/ua')||($mRequestUri == '/ru')||($mRequestUri == '/en'))
 }
 else
 {
-    // Відкриваємо потрібну сторінку
+    // Р’С–РґРєСЂРёРІР°С”РјРѕ РїРѕС‚СЂС–Р±РЅСѓ СЃС‚РѕСЂС–РЅРєСѓ
     if ($mRequestUri == '/') {
         require 'home.php';
         new Home($mRequestUri);
@@ -50,10 +50,16 @@ else
         } else if ($array[0] == 'page') {
             require 'pages.php';
             new Pages($array[1]);
-		} else if ($array[0] == 'admin') {
+        } else if ($array[0] == 'admin') {
             require 'admin.php';
             new Admin($array[1],$array[2]);
-		} else if ($array[0] == '404') {
+        } else if ($array[0] == 'comment') {
+            require 'comment.php';
+            new Comment($array[0],$array[1],$array[2]);
+        } else if ($array[0] == 'vote') {
+            require 'vote.php';
+            new Vote($array[0],$array[1],$array[2]);
+        } else if ($array[0] == '404') {
             require '404.php';	
         } else {
             header('Location: 404');

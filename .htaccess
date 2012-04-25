@@ -3,7 +3,7 @@ AddDefaultCharset utf-8
 RewriteEngine On
 Options +FollowSymlinks
 RewriteCond $1 !^(index\.php|images|robots\.txt|public)
-RewriteCond %{REQUEST_URI} !\.(css≥js≥jpg≥gif≥png)$
+RewriteCond %{REQUEST_URI} !\.(css—ñjs—ñjpg—ñgif—ñpng)$
 RewriteCond %{REQUEST_FILENAME}       !-d
 RewriteCond %{REQUEST_FILENAME}       !-f
 RewriteRule ^(.*) index.php?%{QUERY_STRING}

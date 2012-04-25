@@ -2,8 +2,11 @@
 	echo $error_admin_edit_empty;
 }
 ?>
+
 <form action="/admin/edit/<?=$data['id']?>" method="POST">
-    <p>Заголовок:<br><input type="text" name="title" maxlength="255" value="<?=$data['title_ua']?>" size="100"></p>
-    <p>Текст:<br><textarea name="text" rows="20" cols="100"><?=$data['text_ua']?></textarea></p>
+    <p><?=$lang['admin_news_title_add_ua']?>:<br><input type="text" name="title_ua" maxlength="255" size="100" value="<?=$data['title_ua']?>"></p>
+    <p><?=$lang['admin_news_text_add_ua']?>:<br><textarea name="text_ua" rows="20" cols="100"><?=$data['text_ua']?></textarea></p>
+	<p><?=$lang['admin_news_title_add_en']?>:<br><input type="text" name="title_en" maxlength="255" size="100" value="<?=$data['title_en']?>"></p>
+    <p><?=$lang['admin_news_text_add_en']?>:<br><textarea name="text_en" rows="20" cols="100"><?=$data['text_en']?></textarea></p>	
 	<input type='submit' value='Редагувати новину'>
 </form>

@@ -22,6 +22,7 @@ $lang['read_more'] = 'Читати далі';
 $lang['profile'] = 'Профиль';
 $lang['add_news'] = 'Додати новину';
 $lang['user_management'] = 'Управління користувачами';
+$lang['user_banned'] = 'Ви заблоковані адміністратором сайту';
 $lang['user_exit'] = 'Вихід';
 
 // Сторінка реєстрації
@@ -31,23 +32,17 @@ $lang['reg_username'] = 'Логін';
 $lang['reg_password'] = 'Пароль';
 $lang['reg_password_again'] = 'Повторіть пароль';
 $lang['reg_email'] = 'Електронна почта';
-$lang['reg_firstname'] = 'Ваше ім\'я';
 $lang['reg_name'] = 'Ваше ім\'я';
-$lang['reg_surname'] = 'Ваше прізвище';
 $lang['reg_load_avatar'] = 'Виберіть аватраку: ';
 $lang['reg_button'] = 'Зареєструватися';
 $lang['reg_already_registered'] = 'Ви зареєстровані.';
-
 
 // Помилки при реєстрації
 $lang['reg_error_empty'] = 'Всі поля повинні бути заповнені.';
 $lang['reg_error_max_lenght'] = 'Введена довжина логіна перевищує максимально допустиму.';
 $lang['reg_error_password_repeat'] = 'Пароль і повторення пароля не співпадають.';
 $lang['reg_error_login_isset'] = 'Логін <strong>'.$username.'</strong> вже існує';
-
-
 $lang['error_image_type'] = 'Тільки jpg, gif, png!';
-
 $lang['error_empty_login_pass'] = 'Необхідно вказати ім\'я користувача і пароль.';
 $lang['error_invalid_login_pass'] = 'Невірне ім\'я користувача / пароль.';
 
@@ -58,6 +53,36 @@ $lang['admin_news_title_add_en'] = 'Заголовок новини (на анг
 $lang['admin_news_text_add_en'] = 'Текст новини (на англійській)';
 $lang['admin_news_add_button'] = 'Додати новину';
 $lang['admin_news_empty_add'] = 'Введіть заголовок і текст новини';
+
+// Адмін
+$lang['admin_news_del'] = 'Видалити';
+$lang['admin_news_edit'] = 'Редагувати';
+
+// Коментування
+$lang['comm_add_comm'] = 'Додати коментар';
+$lang['comm_add_tema'] = 'Тема';
+$lang['comm_add_text'] = 'Текст';
+$lang['comm_add_button'] = 'Додати коментар';
+$lang['comm_first_comm'] = 'Ваш коментар буде першим.';
+$lang['comm_empty_field'] = 'Заповніть всі поля.';
+$lang['comm_add'] = 'Коментар додано.';
+$lang['comm_for_news'] = 'Коментарі до новин';
+$lang['comm_author'] = 'Користувач';
+$lang['comm_topic'] = 'Тема';
+$lang['comm_text'] = 'Текст';
+$lang['comm_date_add'] = 'Додано';
+
+// Голосування
+$lang['vote_mark'] = 'Оцінка';
+$lang['vote_count_mark'] = 'Кількість голосів';
+$lang['vote_form_title'] = 'Голосування';
+$lang['vote_choose vote'] = 'Виберіть оцінку';
+$lang['vote_button_add'] = 'Add vote';
+$lang['vote_add_complite'] = 'Ваш голос зараховано';
+$lang['vote_you_voting'] = 'Ваша оцінка матеріалу';
+$lang['vote_add_thanks'] = 'Дякуємо за вашу оцінку!';
+$lang['vote_empty_field'] = 'Потрібно вибрати оцінку!';
+$lang['vote_no_mark'] = 'За цей матеріал ще ніхто не голосував';
 
 return $arr;
 ?>

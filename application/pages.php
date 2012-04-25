@@ -4,6 +4,7 @@ class Pages {
 
     function __construct($alias)
     {
+        global $db;
         $this->load = new Load();
         $this->model = new Model();
         $this->view($alias);      
@@ -21,6 +22,7 @@ class Pages {
         } else {
             $alias = htmlspecialchars($alias);
             $data = $this->model->getpage($alias);
+            
             if (empty($data)) {
                 header('Location: /404');
             }
