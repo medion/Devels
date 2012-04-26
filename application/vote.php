@@ -2,55 +2,52 @@
 
 class Vote {
     
-    function __construct($controller,$action,$post_id)
+    function __construct($controller,$action,$vote)
     {
         $this->load = new Load();
         $this->model = new Model();
         require './connect.inc.php';
-        if ($action == 'add') {
-            $this->add($_POST,$post_id);
-        } else if ($action == 'del') {
-            $this->del($post_id);
-        }
-    }
-    
-    function add($_POST,$post_id) {
-        print_r($_POST);
-        if ($this->loggedin()) {
-            if (isset($_POST['title'])&&isset($_POST['text'])&&isset($_POST['user_id'])) {
-                $title   = $_POST['title'];
-                $text    = $_POST['text'];
-                $user_id = $_POST['user_id'];
-                if (!empty($title)&&!empty($text)&&!empty($user_id)) {
-                    $publication = mktime();
-                    echo 'asd';
-                } else{
-                    $data['comm_empty_field'] = true;
-                }
+        $rules = $_SESSION['rules'];
+        if (isset($rules)&&$rules==2) {
+            if ($action == 'change') {
+                $this->change($vote);
+            } else if ($action == 'del') {
+                $this->del($vote);
             }
         } else {
-            echo 'ERROR';
+            header('Location: http://devels.loc/404');
         }
+
     }
     
-    function del($post_id) {
-        $result = $this->model->commdel($post_id);
+    function change($vote) {
+        //echo 'change '.$post_id;
+        $data['news'] = $vote;
+        $data['vote'] = $this->model->get_vote($vote);
+        //print_r($data['vote']);
+        foreach($data['vote'] as $key => $value) {
+            $all['username'] = $this->model->getcommname($value['user_id']);
+            $data['vote'][$key]['username'] = $all['username'];
+        }
+        //print_r($data);
+        $this->load->view('vote/change.php',$data);
+    }
+    
+    function del($vote) {
+        //$result = mysql_query("SELECT * FROM users WHERE id='".$vote."'");
+        $result = $this->model->get_vote_one($vote);
         //print_r($result);
-        if ($result) {
-            //echo 'Comment del';
-            header('Location: '.$_SERVER['HTTP_REFERER']);
-        } else {
-            echo 'Error';
+        if($result) {
+            $delvote = $this->model->del_vote_one($vote);
+            //print_r($delvote);
         }
-    }
-    
-    function loggedin()
-    {
-        if (isset($_SESSION['user_id'])&&!empty($_SESSION['user_id'])) {
-            return true;
-        } else {
-            return false;
-        }
+        //if (mysql_num_rows($result) > 0) {
+        //    $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        //    $result = mysql_query("DELETE FROM users WHERE id='".$vote."'");
+        //} else {
+        //    header('Location: http://devels.loc/404');
+        //}
+        header('Location: '.$_SERVER["HTTP_REFERER"]);
     }
 
 }

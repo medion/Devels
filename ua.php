@@ -14,6 +14,7 @@ $lang['sidebar_login_title'] = 'Вхід для клієнтів';
 $lang['sidebar_login_button'] = 'Вхід';
 $lang['sidebar_reg_button'] = 'Реєстрація';
 $lang['news_title'] = 'Новини';
+$lang['news_author'] = 'Автор';
 
 //Читати далі
 $lang['read_more'] = 'Читати далі';
@@ -42,9 +43,12 @@ $lang['reg_error_empty'] = 'Всі поля повинні бути заповн
 $lang['reg_error_max_lenght'] = 'Введена довжина логіна перевищує максимально допустиму.';
 $lang['reg_error_password_repeat'] = 'Пароль і повторення пароля не співпадають.';
 $lang['reg_error_login_isset'] = 'Логін <strong>'.$username.'</strong> вже існує';
+$lang['reg_error_email_isset'] = 'Користувач з почтою <strong>'.$email.'</strong> вже існує';
+$lang['error_email_error'] = 'Email '.$email.' не валідний';
 $lang['error_image_type'] = 'Тільки jpg, gif, png!';
 $lang['error_empty_login_pass'] = 'Необхідно вказати ім\'я користувача і пароль.';
 $lang['error_invalid_login_pass'] = 'Невірне ім\'я користувача / пароль.';
+$lang['error_must_reg'] = 'Доступ до цієї сторінки мають тількі авторизовані користувачі!';
 
 // Адмінка - додавання новини
 $lang['admin_news_title_add_ua'] = 'Заголовок новини (на українській)';
@@ -77,12 +81,24 @@ $lang['vote_mark'] = 'Оцінка';
 $lang['vote_count_mark'] = 'Кількість голосів';
 $lang['vote_form_title'] = 'Голосування';
 $lang['vote_choose vote'] = 'Виберіть оцінку';
-$lang['vote_button_add'] = 'Add vote';
+$lang['vote_button_add'] = 'Проголосувати';
 $lang['vote_add_complite'] = 'Ваш голос зараховано';
 $lang['vote_you_voting'] = 'Ваша оцінка матеріалу';
 $lang['vote_add_thanks'] = 'Дякуємо за вашу оцінку!';
 $lang['vote_empty_field'] = 'Потрібно вибрати оцінку!';
 $lang['vote_no_mark'] = 'За цей матеріал ще ніхто не голосував';
+$lang['vote_admin_edit'] = 'Редагувати голосування';
+
+// Профиль
+$lang['profile_title'] = 'Профіль користувача';
+$lang['profile_login'] = 'Логін';
+$lang['profile_name'] = 'Імя';
+$lang['profile_avatar'] = 'Аватар';
+$lang['profile_date_reg'] = 'Дата реєстрації';
+$lang['profile_last_login'] = 'Останній раз заходили на сайт';
+$lang['profile_edit'] = 'Редагувати профіль';
+$lang['profile_del'] = 'Видалити профіль';
+
 
 return $arr;
 ?>

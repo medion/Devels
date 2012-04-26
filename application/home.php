@@ -60,21 +60,17 @@ class Home {
         switch($check_rul['rules'])
         {
             case 0:
-                echo '<p>Користувач</p>';
                 $_SESSION['rules'] = $check_rul['rules'];
                 break;
             case 1:
-                echo '<p>Редактор</p>';
                 $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a>";
                 $_SESSION['rules'] = $check_rul['rules'];
                 break;
             case 2:
-                echo '<p>Адмін</p>';
                 $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a><br><a href='/admin/users'>".$lang['user_management']."</a>";
                 $_SESSION['rules'] = $check_rul['rules'];
                 break;
             case 3:
-                echo '<p>Заблокований</p>';
                 $_SESSION['rules'] = $check_rul['rules'];
                 $data['rules_link'] = "<span style='color:red'>".$lang['user_banned']."</span>";
                 break;

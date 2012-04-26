@@ -4,7 +4,6 @@ class News {
 
     function __construct($controller,$action,$id)
     {
-        global $db;
         $this->load = new Load();
         $this->model = new Model();
         if ($action == 'view') {
@@ -47,8 +46,8 @@ class News {
             // COMMENT
             if ($this->loggedin()) {
                 if (isset($_POST['title'])&&isset($_POST['text'])) {
-                    $title   = $_POST['title'];
-                    $text    = $_POST['text'];
+                    $title   = htmlspecialchars($_POST['title']);
+                    $text    = htmlspecialchars($_POST['text']);
                     $user_id = $_SESSION['user_id'];
                     if (!empty($text)&&!empty($user_id)) {
                         $publication = mktime();
@@ -90,8 +89,6 @@ class News {
                         $data_vote = '1';
                     }
                 }
-            } else {
-                $data_vote = 'not auth';
             }
             
             $id = (int) $id;
@@ -100,9 +97,9 @@ class News {
             $data['error'] = $data_error; // Помилки при коментуванні
             $data['vote_form'] = $data_vote; // Форма коментування
             $data['get_my_mark'] = $this->model->get_my_mark($user_id,$post_id);
-            
+            $data['author'] = $this->model->getauthorname($this->model->getauthor($id));
             // Середня оцінка по матеріалу
-            $middle_vote = $this->model->getmiddle_vote($post_id);
+            $middle_vote = $this->model->get_vote($post_id);
             if ($middle_vote) {
                 $count = count($middle_vote);
                 foreach($middle_vote as $key => $value) {
@@ -112,8 +109,6 @@ class News {
                 $middle_vote = $a/$count_vote;
                 $data['middle_vote'] = round($middle_vote, 2);
                 $data['count_vote'] = $count;
-                //echo 'Середня оцінка: '.round($middle_vote, 2).'<br>';
-                //echo 'Всього оцінок: '.$count;
             } else {
                 $data['vote_no_mark'] = true;
             }
@@ -136,7 +131,7 @@ class News {
                 }
             }
             $id_for_rules = $_SESSION['user_id'];
-            $data['rules_link'] = $this->doit($id_for_rules);
+            $data['rules_link'] = $this->doit($id_for_rules,$post_id);
             if ($this->loggedin()) {
                 $data['profile'] = "<a href='/user/profile'>".$lang['profile']."</a>";
             }
@@ -153,6 +148,11 @@ class News {
             return false;
         }
     }
+    
+    function check_author($post_id) {
+        $data = $this->model->getauthor($post_id);
+        return $data['author'];
+    }
 
     function loggedin() {
         if (isset($_SESSION['user_id'])&&!empty($_SESSION['user_id'])) {
@@ -167,53 +167,49 @@ class News {
         return $data;
     }
 
-    function doit($id)
+    function doit($id,$post_id=NULL)
     {
         switch($_SESSION['lang']) :
             default: include('ua.php'); break;
             case 'ru': include('ru.php'); break;
             case 'en': include('en.php'); break;
         endswitch;
+        $id_user = $_SESSION['user_id'];
         $check_rul = $this->check_rules($id);
-        switch($check_rul['rules'])
-        {
-            case 0:
-                echo '<p>Користувач</p>';
-                $_SESSION['rules'] = $check_rul['rules'];
-                break;
-            case 1:
-                echo '<p>Редактор</p>';
-                $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a>";
-                $_SESSION['rules'] = $check_rul['rules'];
-                break;
-            case 2:
-                echo '<p>Адмін</p>';
-                $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a><br><a href='/admin/users'>".$lang['user_management']."</a>";
-                $_SESSION['rules'] = $check_rul['rules'];
-                $_SESSION['rules_comm'] = $check_rul['rules_comm'];
-                break;
-            case 3:
-                echo '<p>Заблокований</p>';
-                $_SESSION['rules'] = $check_rul['rules'];
-                break;
+        $author = $this->check_author($post_id);
+        //print_r($author);
+        if($id_user == $author||$check_rul['rules']=='2') {
+            $data['author_this'] = true;
+        } else {
+            $data['author_this'] = false;
         }
+        
+            switch($check_rul['rules'])
+            {
+                case 0:
+                    $_SESSION['rules'] = $check_rul['rules'];
+                    break;
+                case 1:
+                    $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a>";
+                    $_SESSION['rules'] = $check_rul['rules'];
+                    $_SESSION['author'] = $author;
+                    break;
+                case 2:
+                    $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a><br><a href='/admin/users'>".$lang['user_management']."</a>";
+                    $_SESSION['rules'] = $check_rul['rules'];
+                    $_SESSION['rules_comm'] = $check_rul['rules_comm'];
+                    break;
+                case 3:
+                    $_SESSION['rules'] = $check_rul['rules'];
+                    $data['rules_link'] = "<span style='color:red'>".$lang['user_banned']."</span>";
+                    break;
+            }
         return $data;
     }
     
     
     
-function cutString($string, $maxlen) {
-     $len = (mb_strlen($string) > $maxlen)
-         ? mb_strripos(mb_substr($string, 0, $maxlen), ' ')
-         : $maxlen
-     ;
-     $cutStr = mb_substr($string, 0, $len);
-     return (mb_strlen($string) > $maxlen)
-         ? $cutStr . '...'
-         : $cutStr 
-     ;
- }
- 
+
     function check_vote($user_id,$post_id) {
         $result = $this->model->check_vote_db($user_id,$post_id);
         //print_r($result);

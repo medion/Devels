@@ -2,15 +2,17 @@
 
 class Comment {
     
-    function __construct($controller,$action,$post_id)
+    function __construct($controller,$action,$id)
     {
         $this->load = new Load();
         $this->model = new Model();
         require './connect.inc.php';
         if ($action == 'add') {
-            $this->add($_POST,$post_id);
+            $this->add($_POST,$id);
         } else if ($action == 'del') {
-            $this->del($post_id);
+            $this->del($id);
+        } else if ($action == 'confirm') {
+            $this->confirm($id);
         }
     }
     
@@ -33,15 +35,19 @@ class Comment {
         }
     }
     
-    function del($post_id) {
-        $result = $this->model->commdel($post_id);
-        //print_r($result);
-        if ($result) {
-            //echo 'Comment del';
-            header('Location: '.$_SERVER['HTTP_REFERER']);
-        } else {
-            echo 'Error';
+    function del($id) {
+        $result = $this->model->getcomm($id);
+        $this->load->view('comment/del.php',$result);
+    }
+    
+    function confirm($id) {
+        //print_r($id);
+        $refer = $this->model->getpagecomm($id);
+        $result = $this->model->commdelete($id);
+        if (!$result) {
+            header('Location: /404');
         }
+        $this->load->view('comment/delcomplite.php',$refer);
     }
     
     function loggedin()

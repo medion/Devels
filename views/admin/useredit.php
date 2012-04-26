@@ -1,9 +1,23 @@
+
+<?php
+
+if ($_SESSION['useredit'] == '1')
+{
+    echo 'Зміни внесено';
+    
+} else {
+    
+}
+
+?>
+
 <?if (isset($error_admin_useredit_empty)) {
 	echo $error_admin_useredit_empty;
 }
 
 //print_r($data);
 ?>
+
 
 <a href='/admin/users'>Список користувачів</a>
 

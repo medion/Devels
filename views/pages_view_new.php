@@ -47,7 +47,6 @@ $lng = $_SESSION['lang'];
 
 
 
-
 <div class="sidebar">
 	<div class="auth">
 	<a href="/ua">UA</a> <a href="/ru">RU</a> <a href="/en">EN</a><br />
@@ -62,8 +61,6 @@ $lng = $_SESSION['lang'];
 	<?=$admin?>
 	
 	<?=$rules_link['rules_link']?>
-	
-	<?=$_SESSION['rules']?>
 			
 	<?php
 	if ($this->loggedin()) {

@@ -15,7 +15,7 @@
 
 function cutString($string, $maxlen) {
      $len = (mb_strlen($string) > $maxlen)
-         ? mb_strripos(mb_substr($string, 0, $maxlen), ' ')
+         ? mb_strripos(mb_substr($string, 0, $maxlen, 'utf-8'), ' ')
          : $maxlen
      ;
      $cutStr = mb_substr($string, 0, $len);
@@ -46,7 +46,7 @@ $lng = $_SESSION['lang'];
 foreach($data['news'] as $key => $value)
 {
     print_r("<div class='news_block'><h4><a href='news/view/".$value['id']."'>".$value['title_'.$lng]."</a></h4>"
-                .cutString($value['text_'.$lng], 280)."<br /><a href='news/view/".$value['id']."'>".$lang['read_more']."</a></div>");
+                .cutString($value['text_'.$lng], 150)."<br /><a href='news/view/".$value['id']."'>".$lang['read_more']."</a></div>");
 }
 ?>
 
@@ -65,8 +65,6 @@ foreach($data['news'] as $key => $value)
 	<?=$admin?>
 	
 	<?=$rules_link['rules_link']?>
-	
-	<?=$_SESSION['rules']?>
 				
 	<?php
 	if ($this->loggedin()) {

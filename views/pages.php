@@ -28,7 +28,7 @@ endswitch;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Сторінка</title>
+<title>РЎС‚РѕСЂС–РЅРєР°</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="http://devels.loc/css/reset.css" type="text/css" media="all">
 <link rel="stylesheet" href="http://devels.loc/css/layout.css" type="text/css" media="all">
@@ -71,7 +71,7 @@ endswitch;
 				<div class="wrapper marg_left1">
 					<article class="col1">
  
-                                            <h2>Сторінка</h2>
+                                            <h2>РЎС‚РѕСЂС–РЅРєР°</h2>
 
                
 <ul>
@@ -90,7 +90,7 @@ foreach($data as $key => $value)
                                                           
                                                
 <?php
-	echo "<br>Активна мова: ".$_SESSION['lang']."<br>";
+	echo "<br>РђРєС‚РёРІРЅР° РјРѕРІР°: ".$_SESSION['lang']."<br>";
 ?>
 
 					</article>
@@ -116,7 +116,7 @@ foreach($data as $key => $value)
                                                 <form action='/user/login' method='post'>
                                                     <input type='text' name='username'>
                                                     <input type='text' name='password'>
-                                                    <input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>Реєстрація</a>
+                                                    <input type='submit' value='".$lang['sidebar_login_button']."'> <a href='/user/registration'>Р РµС”СЃС‚СЂР°С†С–СЏ</a>
                                                 </form>");
             }
             ?>

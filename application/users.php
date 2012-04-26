@@ -1,8 +1,6 @@
 <?php
 
 class Users {
-    public $load;
-    public $model;
     
     function __construct($action,$id)
     {
@@ -19,10 +17,14 @@ class Users {
             $this->registration_done();
         } else if ($action == 'profile') {
             $this->profile();
+        } else if ($action == 'delprofile') {
+            $this->delprofile();
         } else if ($action == 'edit') {
             $this->edit();
         } else if ($action == 'view_profile') {
             $this->view_profile($id);
+        } else if ($action == 'delconfirm') {
+            $this->delconfirm();
         }
     }
 
@@ -58,18 +60,16 @@ class Users {
     function logout()
     {
         unset($_SESSION['user_id']);
-		unset($_SESSION['admin']);
-		unset($_SESSION['rules']);
-                unset($_SESSION['rules_comm']);
-		unset($_SESSION['is_admin']);
-		unset($_SESSION['user_id']);
-		unset($_SESSION['lang']);
+        unset($_SESSION['admin']);
+        unset($_SESSION['rules']);
+        unset($_SESSION['rules_comm']);
+        unset($_SESSION['is_admin']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['lang']);
+        unset($_SESSION['author']);
         header('Location: '.$_SERVER['HTTP_REFERER']);
 	
     }
-    
-    
-    
     
     function registration()
     {
@@ -93,38 +93,48 @@ class Users {
                             if ($result == 1) {
                                 $data['error_login_isset'] = true;
                             } else {
-                                $upfilename = $this->upload($_FILES);
-                                if (empty($upfilename)) { $upfilename = 'default.jpg'; }
-                                $upfile = './uploads/avatar/'.$upfilename;
-                                //print_r($upfile);
-                                $this->img_resize($upfile, $upfile, 150, 150,  70, 0xFFFFF0, 0);
-                                //print_r($a);
-                                
-                                
-                                
-                                $firstlogin = mktime();
-                                $lastlogin = mktime();
-                                
-                                $result2 = $this->model->add_username($username,$password_hash,$email,$name,$upfilename,$firstlogin,$lastlogin); //Додаємо користувача
-                                
-                                // Введені дані пройшли валідацію і занесені в базу, логінимо
-                                if ($result2) {
-                                    $getuser = $this->model->get_user($username,$password_hash); //ІД користувача
-
-                                    if(!empty($getuser)) {
-                                        $user_id = $getuser;
-                                        $_SESSION['user_id'] = $user_id;
-                                        if($_SERVER['HTTP_REFERER'] == 'http://devels.loc/user/login') {
-                                                header('Location: /');
-                                        } else {
-                                                header('Location: /');
-                                        }
-                                    } else {
-                                        $data['error_invalid_login_pass'] = true;
-                                        $this->load->view('login.php', $data);
-                                    }
+                                $result_email = $this->model->check_email($email); //Перевіримо, чи їснує такий користувач
+                                if ($result_email == 1) {
+                                    $data['error_email_isset'] = true;
                                 } else {
-                                        echo 'Відбулась помилка. Реєстрація не можлива';
+                                    $check_milo = preg_match('|^[\w\d\-_+\.]{3,}@[\w\d\-_]+\.([\w\d\-_]+\.)*[\w]{2,4}$|i', $email);
+                                    if (!$check_milo) {
+                                        $data['error_email_error'] = true;
+                                    } else {
+                                        $upfilename = $this->upload($_FILES);
+                                        if (empty($upfilename)) { $upfilename = 'default.jpg'; }
+                                        $upfile = './uploads/avatar/'.$upfilename;
+                                        //print_r($upfile);
+                                        $this->img_resize($upfile, $upfile, 150, 150,  70, 0xFFFFF0, 0);
+                                        //print_r($a);
+
+
+
+                                        $firstlogin = mktime();
+                                        $lastlogin = mktime();
+
+                                        $result2 = $this->model->add_username($username,$password_hash,$email,$name,$upfilename,$firstlogin,$lastlogin); //Додаємо користувача
+
+                                        // Введені дані пройшли валідацію і занесені в базу, логінимо
+                                        if ($result2) {
+                                            $getuser = $this->model->get_user($username,$password_hash); //ІД користувача
+
+                                            if(!empty($getuser)) {
+                                                $user_id = $getuser;
+                                                $_SESSION['user_id'] = $user_id;
+                                                if($_SERVER['HTTP_REFERER'] == 'http://devels.loc/user/login') {
+                                                        header('Location: /');
+                                                } else {
+                                                        header('Location: /');
+                                                }
+                                            } else {
+                                                $data['error_invalid_login_pass'] = true;
+                                                $this->load->view('login.php', $data);
+                                            }
+                                        } else {
+                                                echo 'Відбулась помилка. Реєстрація не можлива';
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -154,17 +164,39 @@ class Users {
     {
         $user_id = $_SESSION['user_id'];
         $data['profile'] = $this->model->getprofile($user_id);
-        //print_r($data['profile']);
 
+        $data['rules_link'] = $this->doit($user_id);
+        
         $data['profile']['firstlogin'] = date('d-m-Y H:i:s',$data['profile']['firstlogin']);
         $data['profile']['lastlogin'] = date('d-m-Y H:i:s',$data['profile']['lastlogin']);
         $this->load->view('user/profile.php', $data);
+    }
+    
+    function delprofile()
+    {
+        $this->load->view('user/del.php');
+    }
+    
+    function delconfirm() {
+        $user_id = $_SESSION['user_id'];
+        $del = $this->model->deluser($user_id);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['admin']);
+        unset($_SESSION['rules']);
+        unset($_SESSION['rules_comm']);
+        unset($_SESSION['is_admin']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['lang']);
+        header('Location: /');
     }
     
     function view_profile($id)
     {
         //echo 'sss '.$id;
         $data['profile'] = $this->model->getprofile($id);
+        $data['profile']['firstlogin'] = date('d-m-Y H:i:s',$data['profile']['firstlogin']);
+        $data['profile']['lastlogin'] = date('d-m-Y H:i:s',$data['profile']['lastlogin']);
+        $data['rules_link'] = $this->doit($user_id);
         $user_id = $_SESSION['user_id'];
         if ($user_id == $id) {
             $data['profile']['my_profile'] = true;
@@ -189,11 +221,7 @@ class Users {
                             if ($upduserinfo) {
                                 $getinfuser = $this->model->getinfuser($user_id);
                                 if ($getinfuser) {
-                                    $result = $this->model->selall($user_id);
-                                    if ($result) {
-                                            $data = $result;
-                                    }
-                                    $data['profile_pass_change'] = true;
+                                    header('Location: /user/profile');
                                 } else {
                                     $data['error_invalid_login_pass'] = true;
                                     echo 'err';
@@ -203,7 +231,8 @@ class Users {
                                     if ($selall) {
                                             $data = $selall;
                                     }
-                                echo 'Змін у профілі не має.';
+                                //echo 'Змін у профілі не має.';
+                                    header('Location: /user/profile');
                             }
                                                     }
             } else if (!empty($password)&&!empty($password_again)) {
@@ -216,12 +245,14 @@ class Users {
                                 if ($selall) {
                                         $data = $selall;
                                 }
-                                $data['profile_pass_change'] = true;
-                            } else {
-                                header('Location: http://devels.loc/404');
-                            }
+                                //$data['profile_pass_change'] = true;
+                                header('Location: /user/profile');
+                            } //else {
+                            //    header('Location: http://devels.loc/404');
+                            //}
                     }
-            } else {
+            }
+            else {
                     $selall = $this->model->selall($user_id);
                     if ($selall) {
                             $data = $selall;
@@ -229,6 +260,14 @@ class Users {
                             header('Location: http://devels.loc/404');
                     }
             }
+                $upfilename = $this->upload($_FILES);
+                if (!empty($upfilename)) {
+                    $fileexist = $this->model->getoriginava($user_id);
+                    $upfile = './uploads/avatar/'.$upfilename;
+                    $this->img_resize($upfile, $upfile, 150, 150,  70, 0xFFFFF0, 0);
+                    $this->model->upduserava($upfilename,$user_id);
+                    //header('Location: /user/profile');
+                }
             $this->load->view('user/edit.php', $data);
     }
 
@@ -301,8 +340,12 @@ class Users {
         }
         return $string;
     }
-	
-	
+    
+    function check_rules($id) {
+        $data = $this->model->getrules($id);
+        return $data;
+    }
+    
     function upload($_FILES) {
         if($_FILES['avatar']['tmp_name']&&$_FILES['avatar']['error']==0)
         {
@@ -327,6 +370,40 @@ class Users {
                 }
             }
         }
+    }
+    
+        function doit($id)
+    {
+        switch($_SESSION['lang']) :
+            default: include('ua.php'); break;
+            case 'ru': include('ru.php'); break;
+            case 'en': include('en.php'); break;
+        endswitch;
+        $check_rul = $this->check_rules($id);
+        switch($check_rul['rules'])
+        {
+            case 0:
+                echo '<p>Користувач</p>';
+                $_SESSION['rules'] = $check_rul['rules'];
+                break;
+            case 1:
+                echo '<p>Редактор</p>';
+                $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a>";
+                $_SESSION['rules'] = $check_rul['rules'];
+                break;
+            case 2:
+                echo '<p>Адмін</p>';
+                $data['rules_link'] = "<a href='/admin/add'>".$lang['add_news']."</a><br><a href='/admin/users'>".$lang['user_management']."</a>";
+                $_SESSION['rules'] = $check_rul['rules'];
+                $_SESSION['rules_comm'] = $check_rul['rules_comm'];
+                break;
+            case 3:
+                echo '<p>Заблокований</p>';
+                $_SESSION['rules'] = $check_rul['rules'];
+                $data['rules_link'] = "<span style='color:red'>".$lang['user_banned']."</span>";
+                break;
+        }
+        return $data;
     }
 	
 	

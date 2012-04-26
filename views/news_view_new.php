@@ -50,17 +50,8 @@ function cutString($string, $maxlen) {
 
 <?php
     print_r("<div class='news_block'><h4>".$data['title_'.$lng]."</h4>");
+    print_r("<span class='author'>".$lang['news_author'].": ".$author."</span>");
 ?>
-    
-    <?php
-    
-    if (isset($vote_no_mark)) {
-        echo $lang['vote_no_mark'];
-    } else {
-        print_r($lang['vote_mark'].': '.$middle_vote.' ');
-        print_r($lang['vote_count_mark'].': '.$count_vote);
-    }
-    ?>
     
     
     
@@ -69,19 +60,29 @@ function cutString($string, $maxlen) {
 ?>
 <?php
     $rules = $_SESSION['rules'];
-    if (isset($rules)&&$rules == 1||$rules == 2) {
-        print_r("<br><a href='/admin/edit/".$data['id']."'>".$lang['admin_news_edit']."</a> <a href='/admin/delete/".$data['id']."'>".$lang['admin_news_del']."</a>");
+    if (isset($rules)&&isset($author)&&$rules == 1||$rules == 2) {
+        if ($rules_link['author_this']) {
+            print_r("<br><a href='/admin/edit/".$data['id']."'>".$lang['admin_news_edit']."</a> <a href='/admin/delete/".$data['id']."'>".$lang['admin_news_del']."</a>");
+        }
+    }
+    if (isset($rules)&&$rules == 2) {
+        print_r(" <a href='/vote/change/".$data['id']."'>".$lang['vote_admin_edit']."</a>");
     }
 ?>
     <hr>
        
 
         
-    <div><?=$lang['vote_form_title']?>:</div>
+    <div><?=$lang['vote_form_title']?></div>
+    <? if (isset($vote_no_mark)):?>
+        <span class="vote_mark_status"><?=$lang['vote_no_mark']?></span>
+    <?else:?>
+        <span class="vote_mark_status"><?=$lang['vote_mark']?> <?=$middle_vote?> / <?=$lang['vote_count_mark']?> <?=$count_vote?></span>
+    <?endif?>
     <? if ($vote_form == '1'):?>
         
         <?if (isset($error['vote_err'])):?>
-            <p><?=$lang['vote_empty_field'];?></p>
+            <p class="error"><?=$lang['vote_empty_field'];?></p>
         <?endif;?>
         <?if (isset($error['vote_add_complite'])):?>
             <p><?=$lang['vote_add_complite'];?></p>
@@ -98,24 +99,30 @@ function cutString($string, $maxlen) {
             </select>
         </form>
     <?elseif ($vote_form == '0'):?>
-        <p><?=$lang['vote_you_voting']?>: <strong><?=$get_my_mark;?></strong></p>
+        <p class="vote_mark_status"><?=$lang['vote_you_voting']?>: <strong><?=$get_my_mark;?></strong></p>
     <?elseif ($vote_form == 'not auth'):?>
         <p>Тількі авторизовані користувачі можуть голосувати.</p>
     <?else:?>
-        <p><?=$lang['vote_add_thanks']?></p>
+        <p class="successfull"><?=$lang['vote_add_thanks']?></p>
     <?endif;?>
 
     <hr>
     
-        <div><?=$lang['comm_add_comm']?>:</div>
+    
+        
+    <div><?=$lang['comm_add_comm']?>:</div>
     
     <? if (isset($comm_form)):?>
-    <? if (isset($error['comm_empty_field'])) {echo $lang['comm_empty_field']; }
-        if (isset($error['comm_add'])) {echo $lang['comm_add']; }
-    ?>
+    <? if (isset($error['comm_empty_field'])):?>
+        <p class="error"><?=$lang['comm_empty_field']?></p>
+    <?endif?>
+    <? if (isset($error['comm_add'])):?>
+        <p class="successfull"><?=$lang['comm_add']?></p>
+    <?endif?>
+
     <form action='/news/view/<?=$data['id']?>' method='post'>
         <p><?=$lang['comm_add_tema']?>: <input type='text' name='title'></p>
-        <p><?=$lang['comm_add_text']?>: <input type='text' name='text'></p>
+        <p><?=$lang['comm_add_text']?>: <textarea name='text' rows="5" cols="70"></textarea></p>
         <input type='hidden' name='user_id' value='1'>
         <input type='submit' value='<?=$lang['comm_add_button']?>'>
     </form>
@@ -138,7 +145,7 @@ function cutString($string, $maxlen) {
             echo '';
         }
     } else {
-        echo $lang['comm_first_comm'];
+        echo "<p class=\"comm_status\">".$lang['comm_first_comm']."</p>";
     }
     
     ?>
@@ -167,8 +174,6 @@ function cutString($string, $maxlen) {
 	<?=$admin?>
 	
 	<?=$rules_link['rules_link']?>
-	
-	<?=$_SESSION['rules']?>
 	
 	<?php
 	if ($this->loggedin()) {

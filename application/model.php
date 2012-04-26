@@ -2,17 +2,7 @@
 
 class Model {
 
-    /*
     public function getallnews() {
-        $result = mysql_query('SELECT * FROM news');
-        while($row = mysql_fetch_assoc($result))
-        {
-            $data[] = $row;
-        };
-        return $data;
-    }
-    */
-    public function getallnews() { //PDO
         global $db;
         $result = $db->query('SELECT * FROM news');
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
@@ -20,14 +10,7 @@ class Model {
         }
         return $data;
     }
-    
-    /*
-    public function getnews($id) {
-        $result = mysql_query('SELECT * FROM news WHERE id = '.$id);
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $row;
-    }
-    */
+
     public function getnews($id) {
         global $db;
         $result = $db->query("SELECT * FROM news WHERE id = '".$id."'");
@@ -35,6 +18,12 @@ class Model {
             $data = $row;
         }
         return $data;
+    }
+    
+    function delnews($id) {
+        global $db;
+        $result = $db->exec("DELETE FROM news WHERE id = '".$id."'");
+        return $result;
     }
 
     public function getmainnews() { //PDO
@@ -46,13 +35,6 @@ class Model {
         return $data;
     }
 
-    /*
-    public function getpage($alias) {
-        $result = mysql_query("SELECT * FROM pages WHERE alias = '".$alias."'");
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $row;
-    }
-    */
     public function getpage($alias) { //PDO
         global $db;
         $result = $db->query("SELECT * FROM pages WHERE alias = '".$alias."'");
@@ -62,27 +44,40 @@ class Model {
         return $data;
     }
     
-    /*
-    public function getrules($id) {
-        $result = mysql_query("SELECT rules FROM users WHERE id = '".$id."'");
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $row;
-    }
-    */   
+ 
     public function getrules($id) { //PDO
         global $db;
         $result = $db->query("SELECT rules FROM users WHERE id = '".$id."'");
         $row = $result->fetchColumn();
         return $row;
     }
-
     
+    function getauthor($post_id) {
+        global $db;
+        $result = $db->query("SELECT author FROM news WHERE id = '".$post_id."'");
+        $row = $result->fetch(PDO::FETCH_NUM);
+        return $row[0];
+    }
+    
+    function getauthorname($id) {
+        global $db;
+        $result = $db->query("SELECT username FROM users WHERE id = '".$id."'");
+        $row = $result->fetch(PDO::FETCH_NUM);
+        return $row[0];
+    }
     
     /* USERS */
     
     public function check_username($username) {
         global $db;
         $result = $db->query("SELECT count(*) FROM users WHERE username='".$username."'");
+        $row = $result->fetch(PDO::FETCH_NUM);
+        return $row[0];
+    }
+    
+    function check_email($email) {
+        global $db;
+        $result = $db->query("SELECT count(*) FROM users WHERE email='".$email."'");
         $row = $result->fetch(PDO::FETCH_NUM);
         return $row[0];
     }
@@ -100,6 +95,13 @@ class Model {
         return $row;
     }
     
+    function getoriginava($user_id) {
+        global $db;
+        $result = $db->query("SELECT avatar FROM users WHERE id='".$user_id."'");
+        $row = $result->fetchColumn();
+        return $row;
+    }
+    
     public function do_login($username,$password_hash) {
         global $db;
         $result = $db->query("SELECT id FROM users WHERE username = '".$username."' AND password = '".$password_hash."'");
@@ -112,15 +114,7 @@ class Model {
         $db->exec("UPDATE users SET lastlogin = '".$lastlogin."', countlogin = countlogin+1 WHERE id = '".$user_id."'");
     }
     
-    
     /* PROFILE */
-    
-    /*
-    public function getprofile($user_id) {
-        $result = mysql_query("SELECT * FROM users WHERE id = '".$user_id."'");
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $row;
-    }*/
     
     public function getprofile($user_id) {
         global $db;
@@ -157,10 +151,24 @@ class Model {
         return $data;
     }
     
-    public function commdel($post_id) {
+    function commdelete($id) {
         global $db;
-        $result = $db->exec("DELETE FROM comment WHERE id = '".$post_id."'");
+        $result = $db->exec("DELETE FROM comment WHERE id = '".$id."'");
         return $result;
+    }
+    
+    function getcomm($id) {
+        global $db;
+        $result = $db->query("SELECT * FROM comment WHERE id = '".$id."'");
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    
+    function getpagecomm($id) {
+        global $db;
+        $result = $db->query("SELECT * FROM comment WHERE id = '".$id."'");
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
     
     /* USER EDIT */
@@ -174,10 +182,22 @@ class Model {
         return $data;
     }
     
+    function deluser($id) {
+        global $db;
+        $result = $db->exec("DELETE FROM users WHERE id = '".$id."'");
+        return $result;
+    }
+    
     function upduserinfo($name,$user_id) {
         global $db;
         $upduserinfo = $db->exec("UPDATE users SET name = '".$name."' WHERE id = '".$user_id."'");
         return $upduserinfo;
+    }
+    
+    function upduserava($upfilename,$user_id) {
+        global $db;
+        $upduserava = $db->exec("UPDATE users SET avatar = '".$upfilename."' WHERE id = '".$user_id."'");
+        return $upduserava;
     }
     
     function selall($user_id) {
@@ -198,17 +218,6 @@ class Model {
     }
     
     /* ADMIN USERS */
-    
-    /*
-    public function getallusers() {
-        $result = mysql_query('SELECT * FROM users');
-        while($row = mysql_fetch_assoc($result))
-        {
-            $data[] = $row;
-        };
-        return $data;
-    }
-    */
     
     function getallusers() {
         global $db;
@@ -244,9 +253,9 @@ class Model {
     
     /* ADMIN NEWS ADD */
     
-    function adminnewsadd($title_ua,$text_ua,$title_en,$text_en) {
+    function adminnewsadd($title_ua,$text_ua,$title_en,$text_en,$author) {
         global $db;
-        $result = $db->query("INSERT INTO news (id,title_ua,text_ua,title_ru,text_ru,title_en,text_en) VALUES ('','".$title_ua."','".$text_ua."','','','".$title_en."','".$text_en."')");
+        $result = $db->query("INSERT INTO news (id,title_ua,text_ua,title_ru,text_ru,title_en,text_en,author) VALUES ('','".$title_ua."','".$text_ua."','','','".$title_en."','".$text_en."','".$author."')");
         return $result;
     }
     
@@ -262,13 +271,13 @@ class Model {
         return $data;
     }
     
-    function adminUpdateNewsEdit($id,$title_ua,$text_ua,$title_en,$text_en) {
-        //$result = mysql_query("UPDATE news SET title_ua='".$title."', text_ua='".$text."' WHERE id = '".$id."'");
+    function adminupdatenewsedit($id,$title_ua,$text_ua,$title_en,$text_en) {
         global $db;
-        $adminupduser = $db->exec("UPDATE news SET title_ua = '".$title_ua."', text_ua='".$text_ua."', title_en='".$title_en."', text_en='".$text_en."' WHERE id = '".$id."'");
-        return $adminupduser;
+        $upd = $db->exec("UPDATE news SET title_ua = '".$title_ua."', text_ua='".$text_ua."', title_en='".$title_en."', text_en='".$text_en."' WHERE id = '".$id."'");
+        return $upd;
     }
     
+
     
     /* VOTE */
     public function add_vote($post_id,$user_id,$vote) {
@@ -277,7 +286,7 @@ class Model {
         return $result;
     }
     
-    public function check_vote_db($user_id,$post_id) {
+    function check_vote_db($user_id,$post_id) {
         global $db;
         $result = $db->query("SELECT vote FROM vote WHERE user_id = '".$user_id."' AND post_id = '".$post_id."'");
         $row = $result->fetch(PDO::FETCH_NUM);
@@ -291,7 +300,7 @@ class Model {
         return $row[0];
     }
     
-    function getmiddle_vote($post_id) {
+    function get_vote($post_id) {
         global $db;
         $query = "SELECT * FROM vote WHERE post_id = '".$post_id."'";
         $res = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
@@ -299,4 +308,17 @@ class Model {
         return $res;
     }
     
+    function get_vote_one($id) {
+        global $db;
+        $result = $db->query("SELECT post_id FROM vote WHERE id = '".$id."'");
+        $row = $result->fetch(PDO::FETCH_NUM);
+        return $row;
+    }
+    
+    function del_vote_one($id) {
+        global $db;
+        $result = $db->exec("DELETE FROM vote WHERE id = '".$id."'");
+        return $result;
+    }
+
 }

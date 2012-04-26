@@ -1,4 +1,11 @@
-<?if (isset($error_admin_edit_empty)) {
+<?
+switch($_SESSION['lang']) :
+   default: include('./ua.php'); break;
+   case 'ru': include('./ru.php'); break;
+   case 'en': include('./en.php'); break;
+endswitch;
+
+if (isset($error_admin_edit_empty)) {
 	echo $error_admin_edit_empty;
 }
 ?>

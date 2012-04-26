@@ -24,12 +24,15 @@ if ($profile_pass_change) {
 	echo '<br>Ваш профіль змінено!<br>';
 }
 ?>
-
+<hr>
 <form action="/user/edit" method="POST" enctype="multipart/form-data">
     <p><?=$lang['reg_password']?>: <input type="text" name="password"></p>
     <p><?=$lang['reg_password_again']?>: <input type="text" name="password_again"></p>
+    <hr>
     <p><?=$lang['reg_name']?>: <input type="text" maxlength="30" name="name" value="<?=$name?>"></p>
-	<p>Виберіть файл для завантаження: <input type="file" name="userfile"></p>
+    <hr>
+    <p>Аватарка: <img src="/uploads/avatar/<?=$avatar?>"</p>
+    <p>Виберіть файл для завантаження: <input type="file" name="avatar"></p>
     <p><input type="submit" value="Зберегти"></p>
 </form>
 

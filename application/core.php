@@ -8,6 +8,8 @@ require 'connect.inc.php';
 // Мова за замовчуванням
 $_SESSION['lang'] = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'ua';
 
+global $db;
+
 // РОУТЕР
 $mRequestUri = $_SERVER["REQUEST_URI"];
 
